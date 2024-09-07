@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: hexagonal-struct
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+

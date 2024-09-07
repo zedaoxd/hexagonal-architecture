@@ -1,0 +1,33 @@
+GET {{host}}/todos
+
+###
+GET {{host}}/todos/1
+
+###
+POST {{host}}/todos
+Content-Type: application/json
+
+{
+    "description": "Learn Spring Boot",
+    "done": false
+}
+
+###
+PUT {{host}}/todos/1
+Content-Type: application/json
+
+{
+    "description": "Learn Spring Boot 2",
+    "done": true
+}
+
+###
+DELETE {{host}}/todos/1
+
+###
+PUT {{host}}/todos/1/done
+
+###
+PUT {{host}}/todos/1/undone
+
+
