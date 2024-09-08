@@ -1,6 +1,6 @@
 package br.com.bruno.hexagonalarchitecture.adapter.controller;
 
-import br.com.bruno.hexagonalarchitecture.domain.Todo;
+import br.com.bruno.hexagonalarchitecture.domain.dto.TodoDTO;
 import br.com.bruno.hexagonalarchitecture.domain.port.TodoServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +15,22 @@ public class TodoController {
     private final TodoServicePort todoServicePort;
 
     @GetMapping
-    public ResponseEntity<List<Todo>> findAll() {
+    public ResponseEntity<List<TodoDTO>> findAll() {
         return ResponseEntity.ok(todoServicePort.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Todo> findById(@PathVariable Long id) {
+    public ResponseEntity<TodoDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(todoServicePort.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<Todo> create(@RequestBody Todo todo) {
+    public ResponseEntity<TodoDTO> create(@RequestBody TodoDTO todo) {
         return ResponseEntity.ok(todoServicePort.create(todo));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Todo> update(@RequestBody Todo todo, @PathVariable Long id) {
+    public ResponseEntity<TodoDTO> update(@RequestBody TodoDTO todo, @PathVariable Long id) {
         return ResponseEntity.ok(todoServicePort.update(todo, id));
     }
 
@@ -41,12 +41,12 @@ public class TodoController {
     }
 
     @PutMapping("/{id}/done")
-    public ResponseEntity<Todo> markAsDone(@PathVariable Long id) {
+    public ResponseEntity<TodoDTO> markAsDone(@PathVariable Long id) {
         return ResponseEntity.ok(todoServicePort.markAsDone(id));
     }
 
     @PutMapping("/{id}/undone")
-    public ResponseEntity<Todo> markAsUndone(@PathVariable Long id) {
+    public ResponseEntity<TodoDTO> markAsUndone(@PathVariable Long id) {
         return ResponseEntity.ok(todoServicePort.markAsUndone(id));
     }
 }

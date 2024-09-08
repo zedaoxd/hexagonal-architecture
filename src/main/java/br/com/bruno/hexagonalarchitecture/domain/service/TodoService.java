@@ -1,6 +1,7 @@
 package br.com.bruno.hexagonalarchitecture.domain.service;
 
 import br.com.bruno.hexagonalarchitecture.domain.Todo;
+import br.com.bruno.hexagonalarchitecture.domain.dto.TodoDTO;
 import br.com.bruno.hexagonalarchitecture.domain.port.TodoRepositoryPort;
 import br.com.bruno.hexagonalarchitecture.domain.port.TodoServicePort;
 
@@ -14,23 +15,32 @@ public class TodoService implements TodoServicePort {
     }
 
     @Override
-    public List<Todo> findAll() {
-        return todoRepositoryPort.findAll();
+    public List<TodoDTO> findAll() {
+        var entities = todoRepositoryPort.findAll();
+        return entities.stream().map(TodoDTO::new).toList();
     }
 
     @Override
-    public Todo findById(Long id) {
-        return todoRepositoryPort.findById(id);
+    public TodoDTO findById(Long id) {
+        return new TodoDTO(todoRepositoryPort.findById(id));
     }
 
     @Override
-    public Todo create(Todo todo) {
-        return todoRepositoryPort.create(todo);
+    public TodoDTO create(TodoDTO todo) {
+        var entity = Todo.builder()
+                .description(todo.description())
+                .done(todo.done())
+                .build();
+        return new TodoDTO(todoRepositoryPort.create(entity));
     }
 
     @Override
-    public Todo update(Todo todo, Long id) {
-        return todoRepositoryPort.update(todo, id);
+    public TodoDTO update(TodoDTO todo, Long id) {
+        var entity = Todo.builder()
+                .description(todo.description())
+                .done(todo.done())
+                .build();
+        return new TodoDTO(todoRepositoryPort.update(entity, id));
     }
 
     @Override
@@ -39,12 +49,12 @@ public class TodoService implements TodoServicePort {
     }
 
     @Override
-    public Todo markAsDone(Long id) {
-        return todoRepositoryPort.markAsDone(id);
+    public TodoDTO markAsDone(Long id) {
+        return new TodoDTO(todoRepositoryPort.markAsDone(id));
     }
 
     @Override
-    public Todo markAsUndone(Long id) {
-        return todoRepositoryPort.markAsUndone(id);
+    public TodoDTO markAsUndone(Long id) {
+        return new TodoDTO(todoRepositoryPort.markAsUndone(id));
     }
 }
