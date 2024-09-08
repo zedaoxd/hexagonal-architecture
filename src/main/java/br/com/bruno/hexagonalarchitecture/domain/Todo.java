@@ -16,6 +16,35 @@ public class Todo {
         this.done = done;
     }
 
+    public static class Builder {
+        private Long id;
+        private String description;
+        private boolean done;
+
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder done(boolean done) {
+            this.done = done;
+            return this;
+        }
+
+        public Todo build() {
+            return new Todo(id, description, done);
+        }
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public Long getId() {
         return id;
     }
