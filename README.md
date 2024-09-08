@@ -102,7 +102,7 @@ A **Arquitetura Hexagonal** (Ports and Adapters) tem como principal objetivo iso
 - **PUT /todos/{id}/done**: Marca uma tarefa como concluída com base no ID.
 - **PUT /todos/{id}/undone**: Marca uma tarefa como não concluída com base no ID.
 
-Exemplos de requisão no arquivo: `files/request.http`
+Exemplos de requisições no arquivo: `files/request.http`
 
 ### Autor
 [Bruno Lessa](https://www.linkedin.com/in/bruno-lessa-ferraz/)
