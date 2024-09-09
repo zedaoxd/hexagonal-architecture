@@ -4,14 +4,20 @@ import br.com.bruno.hexagonalarchitecture.domain.Todo;
 import br.com.bruno.hexagonalarchitecture.domain.dto.TodoDTO;
 import br.com.bruno.hexagonalarchitecture.domain.port.TodoRepositoryPort;
 import br.com.bruno.hexagonalarchitecture.domain.port.TodoServicePort;
+import br.com.bruno.hexagonalarchitecture.domain.port.WebClientPort;
 
 import java.util.List;
 
 public class TodoService implements TodoServicePort {
     private final TodoRepositoryPort todoRepositoryPort;
+    private final WebClientPort webClientPort;
 
-    public TodoService(TodoRepositoryPort todoRepositoryPort) {
+    public TodoService(
+            TodoRepositoryPort todoRepositoryPort,
+            WebClientPort webClientPort
+    ) {
         this.todoRepositoryPort = todoRepositoryPort;
+        this.webClientPort = webClientPort;
     }
 
     @Override
@@ -36,6 +42,11 @@ public class TodoService implements TodoServicePort {
 
     @Override
     public TodoDTO update(TodoDTO todo, Long id) {
+        var response = webClientPort.get("https://my-json-server.typicode.com/zedaoxd/hexagonal-architecture/mock-request");
+        if (!response.permit()) {
+            throw new RuntimeException("Not allowed");
+        }
+
         var entity = Todo.builder()
                 .description(todo.description())
                 .done(todo.done())
